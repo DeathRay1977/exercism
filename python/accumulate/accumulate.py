@@ -1,7 +1,4 @@
 __author__ = 'Norm'
 
 def accumulate(l, func):
-    result = []
-    for item in l:
-        result.append(func(item))
-    return result
+    return [func(item) for item in l]
