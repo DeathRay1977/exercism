@@ -1,9 +1,5 @@
 def detect_anagrams(target_word, probables_list):
-    results = []
-    for current_word in probables_list:
-        if is_anagram(target_word.lower(), current_word.lower()):
-            results.append(current_word)
-    return results
+    return [current_word for current_word in probables_list if is_anagram(target_word.lower(), current_word.lower())]
 
 def is_anagram(target_word, word_to_try):
     if target_word == word_to_try:
