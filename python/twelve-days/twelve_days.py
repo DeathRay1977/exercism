@@ -53,5 +53,4 @@ def format_one_verse(verse_to_format):
 
 
 def day_number_string_interpolation(day):
-    tmpl = Template("On the $num_in_words day of Christmas my true love gave to me, ")
-    return tmpl.substitute(num_in_words=DAYS[day])
+    return "On the {number} day of Christmas my true love gave to me, ".format(number=DAYS[day])
