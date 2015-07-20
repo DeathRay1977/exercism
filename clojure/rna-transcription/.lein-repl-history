@@ -1,0 +1,37 @@
+(load-file "rna_transcription_test.clj")
+(load-file "rna_transcription.clj")
+(load-file "rna_transcription_test.clj")
+:reload
+exit
+(load-file "rna_transcription_test.clj")
+(def text "hello")
+(first text)
+(str(first text))
+(rest text)
+(load-file "rna_transcription_test.clj")
+(str(rest text))
+(apply str(rest text))
+(load-file "rna_transcription_test.clj")
+(def s "X")
+(= (count s) 1)
+(== (count s) 1)
+(string? s)
+(&& (string? s) (= (count s) 1))
+(& (string? s) (= (count s) 1))
+(and (string? s) (= (count s) 1))
+(load-file "rna_transcription_test.clj")
+exit
+(- 3 2)
+(> 3 2)
+(defn fib [n]
+    (if (> n 2) n
+      (+(fib(- n 1))(fib(- n 2)))))
+(fib 5)
+(defn fib [n]
+    (if (< n 2) n
+      (+(fib(- n 1))(fib(- n 2)))))
+(fib 5)
+(fib 6)
+(fib 10)
+(load-file "test.clj")
+exit

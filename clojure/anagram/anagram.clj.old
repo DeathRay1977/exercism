@@ -1,0 +1,19 @@
+(ns anagram
+  (:require [clojure.string :refer [lower-case upper-case]]))
+
+(defn- canonicalize
+  [word]
+  (-> word
+      lower-case
+      frequencies))
+
+(defn- uppercase?
+"Tests to see if the string given as the first argument is the uppercase version of the second "
+  [s w]
+  (= s (upper-case w)))
+
+(defn anagrams-for
+  [word candidates]
+  (let [canonical (canonicalize word)]
+    (vec (filter #(and (not (uppercase? word %)) (not= word %) (= canonical (canonicalize %))) candidates))))
+

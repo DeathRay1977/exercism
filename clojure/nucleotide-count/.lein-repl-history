@@ -1,0 +1,81 @@
+(filter (= "A" %) "ABACAB")
+(filter #(= "A" %) "ABACAB")
+(filter #(= 'A' %) "ABACAB")
+(filter #(= % \A) "ABACAB")
+(filter #(= % 'A') "ABACAB")
+(filter #(= % \A) "ABACAB")
+(count(filter #(= % \A) "ABACAB"))
+exit
+(contains? [\A \T \C \G] \A)
+(contains? {\A \T \C \G} \A)
+(any? [\A \T \C \G] \A)
+(some #(= \A %) [\A \T \C \G])
+(some #(= \Z %) [\A \T \C \G])
+(not (=(some #(= \A %) [\A \T \C \G])))
+(not (=(some #(= \A %) [\A \T \C \G])nil))
+(not (=(some #(= \Z %) [\A \T \C \G])nil))
+(defn in? 
+  [ele coll] (not (=(some #(= ele %) coll)nil)))
+(in? \A [\A \T ])
+exit
+(Exception.)
+(Exception. "OMG")
+(throw (Exception. "OMG"))
+exit
+(ns nucleotide-count)
+(use '[defun :only [defun]])
+(def nucs [\A \T \G \C])
+(defn valid?
+  [ele] (not (=(some #(= ele %) nucs)nil)))
+(defun count
+  ([nuc ""] 0)
+  ([nuc :guard #(not (valid? %)) _] (throw (Exception. "invalid nucleotide")))
+  ([nuc strand] (count (filter #(= % nuc) strand )))
+)
+exit
+(def a {})
+(update-in a [\A] inc)
+(def a {\A 0})
+(update-in a [\A] inc)
+exit
+(defun update-count
+  ([nuc result] (update-in result [nuc] inc)))
+(ns nucleotide-count)
+(use '[defun :only [defun]])
+(def nucs [\A \T \G \C])
+(defn valid?
+  [ele] (not (=(some #(= ele %) nucs)nil)))
+(defun count
+  ([nuc ""] 0)
+  ([nuc :guard #(not (valid? %)) _] (throw (Exception. "invalid nucleotide")))
+  ([nuc strand] (clojure.core/count (filter #(= % nuc) strand )))
+)
+(defun update-count
+  ([nuc result] (update-in result [nuc] inc)))
+(defun nucleotide-counts
+  ([strand] (def result {\A 0 \T 0 \C 0 \G 0})
+            (map #(update-count % result) strand )))
+(def result {\A 0 \T 0 \C 0 \G 0})
+(update-count \A result)
+exit
+(rest "h")
+(rest(rest "h"))
+exit
+(into {\A 0 \T 0 \G 0 \C 0} (frequencies "AGATCCAT"))
+(or(into {\A 0 \T 0 \G 0 \C 0} (frequencies "AGATCCAT"))\A)
+(ns nucleotide-count
+  (:refer-clojure :exclude [count]))
+(def ^{:private :const} dna-nucleotides #{\A \C \G \T})
+(def ^{:private :const} base-count
+  (zipmap dna-nucleotides (repeat 0)))
+(defn nucleotide-counts
+  "generate a map of counts per nucleotide in strand"
+  [strand]
+  (into base-count (frequencies strand)))
+(defn count
+  "count occurrences of nucleotide in strand"
+  [nucleotide strand]
+  (or ((nucleotide-counts strand) nucleotide)
+      (throw (Exception. (str "invalid nucleotide '" nucleotide "'")))))
+(load-file "nucleotide_count_test.clj")
+exit

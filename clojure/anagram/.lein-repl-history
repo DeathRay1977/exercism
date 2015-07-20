@@ -1,0 +1,13 @@
+(defn caps? []
+  (#(\W+)))
+(defn caps? []
+  (#("\W+")))
+(defn caps? []
+  (#("\W+")))
+exit
+(defn uppercase? [s]
+ (= (clojure.string/upper-case s) s))
+(uppercase? "hello")
+(uppercase? "Hello")
+(uppercase? "HEK")
+exit

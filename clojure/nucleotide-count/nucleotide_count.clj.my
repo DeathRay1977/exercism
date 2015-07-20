@@ -1,0 +1,23 @@
+(ns nucleotide-count)
+(use '[defun :only [defun]])
+
+(def nucs [\A \T \G \C])
+
+(defn valid?
+  [ele] (not (=(some #(= ele %) nucs)nil)))
+
+(defun count
+  ([nuc ""] 0)
+  ([nuc :guard #(not (valid? %)) _] (throw (Exception. "invalid nucleotide")))
+  ([nuc strand] (clojure.core/count (filter #(= % nuc) strand ))))
+
+(defun update-count
+  ([nuc result] (update-in result [nuc] inc)))
+
+(defun do-nucleotide-counts
+  (["" result] result)
+  ([strand result] (recur (rest strand) (update-count (first strand) result))))
+
+(defun nucleotide-counts
+  ([strand] (def result {\A 0 \T 0 \C 0 \G 0})
+            (do-nucleotide-counts strand result)))

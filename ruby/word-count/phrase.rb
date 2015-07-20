@@ -4,8 +4,6 @@ class Phrase
   end
 
   def word_count
-    count = Hash.new(0)
-    @words.each { |word| count[word] = count[word]+1}
-    count
+    @words.each_with_object({}) { |word, count| count[word] = count[word]+1}
   end
 end
